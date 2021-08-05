@@ -18,15 +18,16 @@ public class C206_CaseStudy {
 
 			if (option == 1) {
 				// add item
-				addCategory(categoryList);
+				Category cat = inputCategory();
+				C206_CaseStudy.addCategory(categoryList, cat);
 
 			} else if (option == 2) {
 				// view all item
-				viewAllCategory(categoryList);
+				C206_CaseStudy.viewAllCategory(categoryList);
 
 			} else if (option == 3) {
 				// delete an item
-				deleteCategory(categoryList);
+				C206_CaseStudy.deleteCategory(categoryList);
 
 			} else if (option == 4) {
 				System.out.println("Bye!");
@@ -55,67 +56,91 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
-	public static void addCategory(ArrayList<Category> categoryList) {
+	public static Category inputCategory() {
 		
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 		System.out.println("ADD CATEGORY");
-		Helper.line(50, "-");
+		Helper.line(50, "=");
 
 		String newName = Helper.readString("Enter new category name > ");
+		Category cat = new Category(newName); 
+		
+		return cat; 
+	}
+	
+	public static void addCategory(ArrayList<Category> categoryList, Category cat) {
 		
 		boolean isSame = false; 
 		
 		for (int i = 0; i < categoryList.size(); i++) {
-			if(newName.equalsIgnoreCase(categoryList.get(i).getName())) { 
+			if (categoryList.get(i).getName().equalsIgnoreCase(cat.getName())) { 
 				isSame = true; 
 				System.out.println("This category already exists!"); 
 			}
 		}
 		
 		if (isSame == false) { 
-			
-			categoryList.add(new Category(newName));
+			categoryList.add(cat);
 			System.out.println("New Category Added");
-				
 		}
+	}
+	
+	public static String retrieveAllCategory(ArrayList<Category> categoryList) {
+		
+		String output = "";
+
+		for (int i = 0; i < categoryList.size(); i++) {
+
+			output += String.format("%s\n", categoryList.get(i).getName());
+		}
+		
+		return output;
 	}
 
 	public static void viewAllCategory(ArrayList<Category> categoryList) {
 		
-		Helper.line(50, "-");
-		System.out.println("VIEW ALL CATEGORIES");
-		Helper.line(50, "-");
+		Helper.line(50, "=");
+		C206_CaseStudy.setHeader("VIEW ALL CATEGORIES");
+		Helper.line(50, "=");
 		
-		if (categoryList.isEmpty() == false) { 
+		String output = String.format("%s\n", "CATEGORIES AVAILABLE"); 
+		output += retrieveAllCategory(categoryList);
 			
-			String output = String.format("%s\n", "CATEGORIES AVAILABLE"); 
+		System.out.println(output);
+		
+	}
+	
+	public static void deleteCategory(ArrayList<Category> categoryList) {
+		
+		Helper.line(50, "=");
+		C206_CaseStudy.setHeader("DELETE CATEGORY");
+		Helper.line(50, "=");
+		
+		String removeCat = Helper.readString("Enter category to delete > "); 
+		Boolean isDelete = doDeleteCategory(categoryList, removeCat);
+		
+		if (isDelete == false) {
+			System.out.println("Invalid category");
 			
-			for (int i = 0; i < categoryList.size(); i++) {
-
-				output += String.format("%s\n", categoryList.get(i).getName());
-		}
-			
-			System.out.println(output);
+		} else {
+			System.out.println(removeCat + " is removed");
 		}
 	}
 
-	public static void deleteCategory(ArrayList<Category> categoryList) {
+	public static boolean doDeleteCategory(ArrayList<Category> categoryList, String removeCat){
 		
-		Helper.line(50, "-");
-		System.out.println("DELETE CATEGORY");
-		Helper.line(50, "-");
-		
-		String removeCat = Helper.readString("Enter category to delete > "); 
+		boolean isDelete = false;
 		
 		for (int i = 0; i < categoryList.size(); i++) { 
 			if (categoryList.get(i).getName().equalsIgnoreCase(removeCat)) { 
 				categoryList.remove(i); 
-				break;
+				isDelete = true;
+				
 			}
 		}
 		
-		System.out.println(removeCat + " is removed"); 
-
+		return isDelete;
 	}
+	
 }
 
