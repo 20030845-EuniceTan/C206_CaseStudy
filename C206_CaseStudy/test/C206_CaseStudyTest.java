@@ -49,7 +49,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test if that User Account arraylist size is 2?", 2, userAccList.size());
 	
 		// test if the expected output string same as the list of users retrieved
-		// from the SourceCentre
+		// from the CaseStudy
 		allUsers = C206_CaseStudy.retrieveAllUserAcc(userAccList);
 	
 		testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "Ben", "ben@yahoo.com", "Yes", "", 40);
@@ -60,25 +60,23 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void testDoReturnCamcorder() {
+	public void testDeleteUser() {
 		//fail("Not yet implemented");
         
         
-        // Test if Item list is not empty, so that can loan a item
-        assertNull("Test if there is valid Camcorder to return to", userAccList);
+        // Test if user list is not empty, so that can delete user
+        assertNull("Test if there is valid User to delete to", userAccList);
                         
-        //Given an empty list, after adding 2 items, test if the size of the list is 2
-        C206_CaseStudy.addUserAcc(userAccList, ua1);
-		C206_CaseStudy.addUserAcc(userAccList, ua1);
-        assertEquals("Test if that Camcorder arraylist size is 2?", 2, userAccList.size());
+        //Test if the size of the list is 5
+        assertEquals("Test if that User Account arraylist size is 5?", 5, userAccList.size());
                 
-        //test if the expected output string same as the list of users retrieved from the SourceCentre
-        String allChromebook = C206_CaseStudy.retrieveAllUserAcc(userAccList);
+        //test if the expected output string same as the list of users retrieved from the CaseStudy
+        String allUserAcc = C206_CaseStudy.retrieveAllUserAcc(userAccList);
 
  
 
-        String testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","CB0011", "My Google Chromebook 1st", "Yes", "","Mac OS");
-        testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","CB0012", "SAMSUNG Chromebook 4+", "Yes", "","Win 10");
+        String testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "Ben", "ben@yahoo.com", "Yes", "", 40);
+        testOutput += String.format("%-10s %-30s %-10s %-10s %-20d\n", "Candy", "candy@gmail.com", "Yes", "", 20);
             
 		assertEquals("Check that ViewAllUserAcclist", testOutput, allUsers);
          
