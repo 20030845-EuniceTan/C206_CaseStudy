@@ -8,6 +8,7 @@ public class C206_CaseStudy {
 		ArrayList<Bid> bidList = new ArrayList<Bid>();
 					
 		bidList.add(new Bid(123,"Antique","sally@gmail.com","bob@gmail.com",9.00));
+		bidList.add(new Bid(223,"AntiqueShop","sallyTay@gmail.com","bobNg@gmail.com",11.00));
 		
 		int option = 0;
 
@@ -18,8 +19,8 @@ public class C206_CaseStudy {
 
 			if (option == 1) {
 				// add item
-				Bid cat = inputBids();
-				C206_CaseStudy.addBids(bidList, cat);
+				Bid bid = inputBids();
+				C206_CaseStudy.addBids(bidList, bid);
 
 			} else if (option == 2) {
 				// view all item
@@ -73,7 +74,7 @@ public class C206_CaseStudy {
 		Helper.line(50, "=");
 		
 		
-		String output = String.format("%-10s %-30s %-10s %-10s %-20s\n", "ID", "ITEM NAME",
+		String output = String.format("%-7s %-15s %-20s %-15s %-25s\n", "ID", "ITEM NAME",
 				"SELLER EMAIL", "BUYER EMAIL","BID PRICE");
 		 output += retrieveAllBids(bidList);	
 		System.out.println(output);
@@ -89,13 +90,23 @@ public class C206_CaseStudy {
 		int bidID = Helper.readInt("Enter bid ID: ");
 		String iN = Helper.readString("Enter item name: ");
 		String sE = Helper.readString("Enter seller email: ");
+		
+		if(!sE.contains(".") && !sE.contains("@")) {
+			System.out.println("Invalid email");
+		} 
+		
 		String bE = Helper.readString("Enter buyer email: ");
-		float price = Helper.readFloat("Enter bid price: ");
+		
+		if(!bE.contains(".") && !bE.contains("@")) {
+			System.out.println("Invalid email");
+		}
+		double price = Helper.readDouble("Enter bid price: ");
 
 		Bid bid = new Bid(bidID, iN, sE, bE, price);
 		return bid;
 		
 	}
+	
 	public static void addBids(ArrayList<Bid> bidList, Bid bid) {
 		boolean isSame = false; 
 		
@@ -116,21 +127,36 @@ public class C206_CaseStudy {
 	
 	//Delete
 	
-	public static boolean deleteBids(ArrayList<Bid> bidList) {
+	public static boolean doDeleteBids(ArrayList<Bid> bidList, int removeID) {
 		Helper.line(50, "=");
 		C206_CaseStudy.setHeader("DELETE BID");
 		Helper.line(50, "=");
 		
-		int removeID = Helper.readInt("Enter bid ID to delete: ");
+		boolean isDelete = false;
+		
 		
 		for(int i = 0; i < bidList.size(); i++) {
 			if(bidList.get(i).getBidID() == removeID) {
-				bidList.remove(removeID);
-				System.out.println("Bid deleted");
-			}
+				bidList.remove(i);
+				isDelete = true;
+				
+			} 
 			
 		}
-		return true;
+		return isDelete;
+
+		
+	}
+	
+	public static void deleteBids(ArrayList<Bid> bidList) {
+		int removeID = Helper.readInt("Enter bid ID to delete: ");
+		Boolean isDelete = doDeleteBids(bidList, removeID);
+		
+		if(isDelete == false) {
+			System.out.println("Invalid bid ID");
+		} else {
+			System.out.println("Bid deleted!");
+		}
 		
 	}
 	

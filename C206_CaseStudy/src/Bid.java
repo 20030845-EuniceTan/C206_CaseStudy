@@ -52,7 +52,7 @@ public class Bid extends C206_CaseStudy{
 	public String toString() {
 		
 		// Write your codes here
-		return String.format("%-15s %-35s %-15s %-15s", getBidID(),
+		return String.format("%-7d %-15s %-20s %-15s %-25.2f", getBidID(),
 				getItemName(),getSellerEmail(),getBuyerEmail(),getBidPrice());
 
 	}
