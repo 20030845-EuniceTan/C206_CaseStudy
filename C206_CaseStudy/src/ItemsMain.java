@@ -94,7 +94,8 @@ public class ItemsMain {
 		
 		ItemsMain.setHeader("VIEW ITEMS");
 		
-		String output = String.format("%-20s %-30s %-10s %-20s %-20s %-20s\n", "NAME", "DESCRIPTION", "MINIMUM PRICE", "AUCTION START DATE", "AUCTION END DATE", "BID INCREMENT");
+		String output = String.format("%-20s %-30s %-10s %-20s %-20s %-20s\n", "NAME", 
+				"DESCRIPTION", "MINIMUM PRICE", "AUCTION START DATE", "AUCTION END DATE", "BID INCREMENT");
 		output += retrieveAllItems(itemList);
 		System.out.println(output);
 	
