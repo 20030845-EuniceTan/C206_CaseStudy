@@ -7,15 +7,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
-	private UserInfo ua1;
-	private UserInfo ua2;
+	private UserAccount ua1;
+	private UserAccount ua2;
 	
-	private ArrayList<UserInfo> userAccList;
+	private ArrayList<UserAccount> userAccList;
 
 	@Before
 	public void setUp() throws Exception {
-		ua1 = new UserInfo("Ben","ben123", "Buyer", "ben@yahoo.com", "YH786nh");
-		ua2 = new UserInfo("Candy", "canndy","Seller" ,"candy@gmail.com", "dvD567i");
+		
+		ua1 = new UserAccount("Candy", "canndy", "Seller", "candy@gmail.com", "dvD567i");
+		ua2 = new UserAccount("Ben", "ben123", "Buyer", "ben@yahoo.com", "YH786nh");
+		
+		userAccList = new ArrayList<UserAccount>();
 	}
 	
 	@Test
@@ -46,9 +49,10 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addUser(userAccList, ua1);
 		C206_CaseStudy.addUser(userAccList, ua2);
 		
-		String allUsers = C206_CaseStudy.viewAllUser(userAccList);
+		String allUsers = C206_CaseStudy.retrieveAllUser(userAccList);
 		
-		String testOutput = String.format("%s\n", userAccList);
+		String testOutput = String.format("%-15s %-15s %-15s %-15s %-15s\n", "Candy", "canndy", "Seller", "candy@gmail.com", "dvD567i");
+		testOutput += String.format("%-15s %-15s %-15s %-15s %-15s\n", "Ben", "ben123", "Buyer", "ben@yahoo.com", "YH786nh");
 		
 		assertEquals("Check that ViewAllUserAcclist", testOutput, allUsers);
 		
@@ -64,7 +68,7 @@ public class C206_CaseStudyTest {
         
         
         // Test if user list is not empty, so that can delete user
-        assertNull("Test if there is valid User to delete to", userAccList);
+        assertNotNull("Test if there is valid User to delete to", userAccList);
                         
         //Test if the list with users
         C206_CaseStudy.addUser(userAccList, ua1);
@@ -72,7 +76,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Test if the user list is size 2?", 2, userAccList.size());
 		
         //test if user is deleted
-        Boolean isDelete = C206_CaseStudy.doDeleteUser(userAccList, ua1);
+        Boolean isDelete = C206_CaseStudy.doDeleteUser(userAccList, "ben@yahoo.com");
         assertTrue(isDelete);
     }  
 
