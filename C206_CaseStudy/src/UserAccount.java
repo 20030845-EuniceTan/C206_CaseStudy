@@ -11,18 +11,34 @@
 
 public class UserAccount {
 	private String name;
+	private String username;
 	private String role;
 	private String email;
 	private String password;
 	
-	public UserAccount(String name, String role, String email, String password) {
+	public UserAccount(String name,String username, String role, String email, String password) {
 		super();
 		this.name = name;
+		this.username = username;
 		this.role = role;
 		this.email = email;
 		this.password = password;
 	}
 	
+	@Override
+	public String toString() {
+		return "UserAccount [name=" + name + ", username=" + username + ", role=" + role + ", email=" + email
+				 + "]";
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getName() {
 		return name;
 	}

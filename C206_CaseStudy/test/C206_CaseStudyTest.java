@@ -7,79 +7,73 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
-	private UserAcc ua1;
-	private UserAcc ua2;
+	private UserInfo ua1;
+	private UserInfo ua2;
 	
-	private ArrayList<UserAcc> userAccList;
+	private ArrayList<UserInfo> userAccList;
 
 	@Before
 	public void setUp() throws Exception {
-		ua1 = new UserAcc("Ben", "ben@yahoo.com", "YH786nh", null);
-		ua2 = new UserAcc("Candy", "candy@gmail.com", "dvD567i",null);
+		ua1 = new UserInfo("Ben","ben123", "Buyer", "ben@yahoo.com", "YH786nh");
+		ua2 = new UserInfo("Candy", "canndy","Seller" ,"candy@gmail.com", "dvD567i");
 	}
+	
 	@Test
-	public void testAddUserAccount() {
+	public void testAddUser() {
+		
 		// Item list is not null, so that can add a new user
 		assertNotNull("Test if there is valid User Account arraylist to add to", userAccList);
 	
 		// Given an empty list, after adding 1 user, the size of the list is 1
-		C206_CaseStudy.addUserAcc(userAccList, ua1);
+		C206_CaseStudy.addUser(userAccList, ua1);
 		assertEquals("Test if that UserAccount arraylist size is 1?", 1, userAccList.size());
 	
 		// The user just added is as same as the first user of the list
-		assertSame("Test that UserAccount is added same as 1st item of the list?", ua1, userAccList.get(0));
+		assertSame("Test that User is added same as 1st user of the list?", ua1, userAccList.get(0));
 	
 		// Add another user. test The size of the list is 2?
-		C206_CaseStudy.addUserAcc(userAccList, ua2);
+		C206_CaseStudy.addUser(userAccList, ua2);
 		assertEquals("Test that UserAccount arraylist size is 2?", 2, userAccList.size());
 		}
 		
 	@Test
-	public void testRetrieveAllUser() {
-		// Item list is not null, so that can add a new user
+	public void testViewAllUser() {
+		
+		// Item list is not null, so that can view all user
 		assertNotNull("Test if there is valid User Account arraylist to add to", userAccList);
 	
-		// test if the list of users retrieved from the SourceCentre is empty
-		String allUsers = C206_CaseStudy.retrieveAllUserAcc(userAccList);
-		String testOutput = "";
+		// test if the list of users retrieved from the CaseStudy is not empty
+		C206_CaseStudy.addUser(userAccList, ua1);
+		C206_CaseStudy.addUser(userAccList, ua2);
+		
+		String allUsers = C206_CaseStudy.viewAllUser(userAccList);
+		
+		String testOutput = String.format("%s\n", userAccList);
+		
 		assertEquals("Check that ViewAllUserAcclist", testOutput, allUsers);
-		// Given an empty list, after adding 2 items, test if the size of the list is 2
-		C206_CaseStudy.addUserAcc(userAccList, ua1);
-		C206_CaseStudy.addUserAcc(userAccList, ua2);
+		
+		// Test after adding 2 items, test if the size of the list is 2
+		
 		assertEquals("Test if that User Account arraylist size is 2?", 2, userAccList.size());
 	
-		// test if the expected output string same as the list of users retrieved
-		// from the CaseStudy
-		allUsers = C206_CaseStudy.retrieveAllUserAcc(userAccList);
-	
-		testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "Ben", "ben@yahoo.com", "Yes", "", 40);
-		testOutput += String.format("%-10s %-30s %-10s %-10s %-20d\n", "Candy", "candy@gmail.com", "Yes", "", 20);
-	
-		assertEquals("Check that ViewAllUserAcclist", testOutput, allUsers);
 
 	}
 	
 	@Test
 	public void testDeleteUser() {
-		//fail("Not yet implemented");
         
         
         // Test if user list is not empty, so that can delete user
         assertNull("Test if there is valid User to delete to", userAccList);
                         
-        //Test if the size of the list is 5
-        assertEquals("Test if that User Account arraylist size is 5?", 5, userAccList.size());
-                
-        //test if the expected output string same as the list of users retrieved from the CaseStudy
-        String allUserAcc = C206_CaseStudy.retrieveAllUserAcc(userAccList);
-
- 
-
-        String testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "Ben", "ben@yahoo.com", "Yes", "", 40);
-        testOutput += String.format("%-10s %-30s %-10s %-10s %-20d\n", "Candy", "candy@gmail.com", "Yes", "", 20);
-            
-		assertEquals("Check that ViewAllUserAcclist", testOutput, allUsers);
-         
+        //Test if the list with users
+        C206_CaseStudy.addUser(userAccList, ua1);
+		C206_CaseStudy.addUser(userAccList, ua2);
+		assertEquals("Test if the user list is size 2?", 2, userAccList.size());
+		
+        //test if user is deleted
+        Boolean isDelete = C206_CaseStudy.doDeleteUser(userAccList, ua1);
+        assertTrue(isDelete);
     }  
 
 	@After
@@ -90,11 +84,7 @@ public class C206_CaseStudyTest {
 		
 	}
 
-	@Test
-	public void c206_test() {
-		//fail("Not yet implemented"); 
-		assertTrue("C206_CaseStudy_SampleTest ",true);
-	}
+	
 	
 	
 	
