@@ -100,6 +100,8 @@ public class C206_CaseStudy {
 		if(!bE.contains(".") && !bE.contains("@")) {
 			System.out.println("Invalid email");
 		}
+		
+		
 		double price = Helper.readDouble("Enter bid price: ");
 
 		Bid bid = new Bid(bidID, iN, sE, bE, price);
